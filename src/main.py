@@ -1,6 +1,35 @@
 import tkinter as tk
 import tkinter.font as tkFont
 import subprocess
+import os
+import json
+import urllib.request
+import sys
+from urllib.error import URLError, HTTPError
+
+ASSET_NAME = "yt-downloader.exe"
+GITHUB_LINK = f"https://api.github.com/repos/desktopworm85/yt-downloader/releases/latest"
+
+def _https_get_json(url: str) -> dict:
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+def get_latest_release_info():
+    data = _https_get_json(GITHUB_LINK)
+    tag = data.get("tag_name", "")
+    return tag
+
+def is_newer(latest_tag: str) -> bool:
+    with open("lib/ver.txt", "r") as f:
+        current_tag = f.read()
+        f.close()
+    
+    if (latest_tag != current_tag):
+        os.system("updater.exe")
+        sys.exit()
+
+is_newer(get_latest_release_info())
 
 root = tk.Tk()
 root.geometry("800x400")
