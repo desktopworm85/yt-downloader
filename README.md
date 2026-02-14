@@ -6,3 +6,5 @@ Once selected, press download and it'll download the video in the same directory
 Installation instructions:
 Download the [latest release](https://github.com/desktopworm85/yt-downloader/releases) zip file.
 Extract the .ZIP file anywhere and run yt-downloader.exe. It will automatically update the file so there is no need to manually run the updater.
+
+This program uses FFmpeg. It can be downloaded seperately from [here](https://www.ffmpeg.org/)
